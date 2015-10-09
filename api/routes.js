@@ -8,6 +8,11 @@ module.exports = [
 		'handler' : require( './handlers/comments-list' ),
 	},
 	{
+		'method'  : 'POST',
+		'path'    : '/repos/{repo}/{issue}/comments',
+		'handler' : require( './handlers/create-comment' ),
+	},
+	{
 		'method'  : 'GET',
 		'path'    : '/repos/{repo}/pulls',
 		'handler' : require( './handlers/pulls-list' ),

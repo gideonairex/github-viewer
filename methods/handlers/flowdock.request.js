@@ -6,23 +6,19 @@ module.exports = function ( request, requestData, next ) {
 
 	var payload = request.payload;
 
-	var user        = ( payload && payload.username ) || request.state.github.username;
-	var accessToken = ( payload && payload[ 'access-token' ] ) || request.state.github.accessToken;
+	var accessToken = ( payload && payload[ 'flowdock-access-token' ] ) || request.state.flowdock.accessToken;
 
 	// Transfer to config
-	var githubURI = 'https://' + user + ':' + accessToken + '@api.github.com';
+	var flowDockURI = 'https://' + accessToken + '@api.flowdock.com/flows/school-improvement-network/chix-chips';
 
 	var options = {
 		'method' : requestData.method,
-		'url' : requestData.absUrl || [ githubURI, requestData.path ].join( '' ),
-		'headers' : {
-			'User-Agent' : user
-		},
-		'json' : true
+		'url'    : requestData.absUrl || [ flowDockURI, requestData.path ].join( '' )
 	};
 
 	if ( requestData.method.toLowerCase() === 'post' ) {
 		options.body = requestData.body;
+		options.json = true;
 	}
 
 	return Request( options, function ( error, response, body ) {

@@ -40,6 +40,13 @@ server.register( plugins, function ( error ) {
 		'strictHeader' : true // don't allow violations of RFC 6265
 	} );
 
+	server.state( 'flowdock', {
+		'ttl'          : null,
+		'encoding'     : 'base64json',
+		'clearInvalid' : false, // remove invalid cookies
+		'strictHeader' : true // don't allow violations of RFC 6265
+	} );
+
 	server.method( require( './methods/directory' ) );
 	server.route( require( './views/routes' ) );
 	server.route( require( './api/routes' ) );

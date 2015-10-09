@@ -19,7 +19,15 @@ module.exports = function ( request, reply ) {
 			'accessToken' : request.payload[ 'access-token' ]
 		};
 
-		reply.redirect( '/home' ).state( 'github', cookie );
+		var flowdockCookie = {
+			'username'    : request.payload.username,
+			'accessToken' : request.payload[ 'flowdock-access-token' ]
+		};
+
+		reply
+			.redirect( '/home' )
+			.state( 'github', cookie )
+			.state( 'flowdock', flowdockCookie );
 
 	} );
 
